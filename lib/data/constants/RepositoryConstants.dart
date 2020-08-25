@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
-final String BASE_NETWORK_URL = "https://pokeapi.co";
+final String BASE_API_URL = "https://pokeapi.co";
+final String BASE_IMAGE_URL = "https://pokeres.bastionbot.org/images/pokemon";
+
+String imageUrl(String url) {
+  final id = url.split("/").reversed.skip(1).first;
+  return "$BASE_IMAGE_URL/$id.png";
+}

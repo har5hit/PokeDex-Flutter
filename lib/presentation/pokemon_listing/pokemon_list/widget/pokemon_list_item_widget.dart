@@ -15,22 +15,18 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex_flutter/presentation/pokemon_listing/pokemon_list/widget/pokemon_list_item_widget.dart';
-import 'package:pokedex_flutter/utils/pagination/PaginatedListWidget.dart';
+import 'package:pokedex_flutter/data/constants/RepositoryConstants.dart';
+import 'package:pokedex_flutter/data/pokemon_list/model/pokemon_list_response.dart';
 
-import '../bloc/bloc.dart';
+class PokemonListItemWidget extends StatelessWidget {
+  final Pokemon data;
 
-class PokemonListWidget extends StatelessWidget {
+  PokemonListItemWidget(this.data);
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PokemonListBloc, PokemonListState>(
-        builder: (context, state) {
-      return PaginatedListWidget(
-          state,
-          (context, data) => PokemonListItemWidget(data),
-          () => context.bloc<PokemonListBloc>()..add(PokemonListRefresh()),
-          () => context.bloc<PokemonListBloc>()..add(PokemonListFetch()));
-    });
+    return Card(
+        child: Stack(
+            children: [Image.network(imageUrl(data.url)), Text(data.name)]));
   }
 }

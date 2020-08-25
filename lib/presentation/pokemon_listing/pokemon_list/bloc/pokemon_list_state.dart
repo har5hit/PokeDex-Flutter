@@ -26,8 +26,8 @@ abstract class PokemonListState implements PaginatedListState {
 class PokemonListLoading extends PokemonListState implements ListLoading {}
 
 class PokemonListLoaded extends PokemonListState
-    implements ListLoaded<Results> {
-  final List<Results> list;
+    implements ListLoaded<Pokemon> {
+  final List<Pokemon> list;
   final bool hasReachedMax;
   final int total;
 

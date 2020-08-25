@@ -31,7 +31,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   final ILogger _logger;
   var _offset = 0;
   final _limit = 20;
-  var _currentList = <Results>[];
+  var _currentList = <Pokemon>[];
   var _reachedMax = false;
 
   PokemonListBloc(this._repository, this._logger) : super(PokemonListLoading());

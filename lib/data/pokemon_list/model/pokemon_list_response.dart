@@ -18,7 +18,7 @@ class PokemonListResponse {
   int count;
   String next;
   String previous;
-  List<Results> results;
+  List<Pokemon> results;
 
   PokemonListResponse({this.count, this.next, this.previous, this.results});
 
@@ -27,9 +27,9 @@ class PokemonListResponse {
     next = json['next'];
     previous = json['previous'];
     if (json['results'] != null) {
-      results = new List<Results>();
+      results = new List<Pokemon>();
       json['results'].forEach((v) {
-        results.add(new Results.fromJson(v));
+        results.add(new Pokemon.fromJson(v));
       });
     }
   }
@@ -51,7 +51,7 @@ class PokemonListResponse {
   }
 }
 
-class Results {
+class Pokemon {
   String name;
   String url;
 
@@ -60,9 +60,9 @@ class Results {
     return 'Results{name: $name, url: $url}';
   }
 
-  Results({this.name, this.url});
+  Pokemon({this.name, this.url});
 
-  Results.fromJson(Map<String, dynamic> json) {
+  Pokemon.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     url = json['url'];
   }
