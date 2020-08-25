@@ -18,7 +18,3 @@ jobs:
           channel: 'beta'
       - run: flutter pub get
       - run: flutter build apk
-      - uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: build/app/outputs/flutter-apk/app-release.apk
