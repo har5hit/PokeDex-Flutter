@@ -72,7 +72,9 @@ class _PokemonListItemWidgetState extends State<PokemonListItemWidget> {
         maximumColorCount: 1);
     if (palette.dominantColor != null) {
       widget.data.setBackground(palette.dominantColor.color);
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 }
