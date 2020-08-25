@@ -21,7 +21,7 @@ import 'package:pokedex_flutter/utils/dev_tools/ILogger.dart';
 
 class PokemonListRepository {
   ILogger _logger;
-  PokemonListApi _network;
+  final PokemonListApi _network;
 
   PokemonListRepository(this._logger, this._network);
 
