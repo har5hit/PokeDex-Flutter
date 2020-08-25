@@ -33,7 +33,9 @@ class _PokemonListItemWidgetState extends State<PokemonListItemWidget> {
   @override
   void initState() {
     super.initState();
-    getPalette();
+    if (!widget.data.paletteSet) {
+      getPalette();
+    }
   }
 
   @override
@@ -66,10 +68,12 @@ class _PokemonListItemWidgetState extends State<PokemonListItemWidget> {
 
   void getPalette() async {
     final palette = await PaletteGenerator.fromImageProvider(
-        CachedNetworkImageProvider(imageUrl(widget.data.url)));
-    setState(() {
-      widget.data.background = palette.dominantColor.color;
-    });
+        CachedNetworkImageProvider(imageUrl(widget.data.url)),
+        maximumColorCount: 1);
+    if (palette.dominantColor != null) {
+      widget.data.setBackground(palette.dominantColor.color);
+      setState(() {});
+    }
   }
 }
 

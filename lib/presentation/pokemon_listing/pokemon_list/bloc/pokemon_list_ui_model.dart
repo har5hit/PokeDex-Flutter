@@ -24,10 +24,17 @@ class PokemonListUiModel {
   String url;
   Color background;
 
+  setBackground(Color background) {
+    this.background = background;
+    paletteSet = true;
+  }
+
   PokemonListUiModel.from(Pokemon pokemon) {
     this.name = pokemon.name;
     this.url = pokemon.url;
     this.background =
         Colors.primaries[Random().nextInt(Colors.primaries.length)];
   }
+
+  bool paletteSet = false;
 }
