@@ -1,5 +1,5 @@
 name: pokedex_flutter
-description: A new Flutter application.
+description: A Pokedex flutter application.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -27,6 +27,7 @@ dependencies:
   http: ^0.12.2
   meta: ^1.2.2
   equatable: ^1.2.4
+  liquid_pull_to_refresh: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
