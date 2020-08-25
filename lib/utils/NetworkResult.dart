@@ -58,7 +58,7 @@ class NetworkResult<T> {
     } catch (e) {
       print(e);
       this.status = STATUS.ERROR;
-      this.message = "No Internet Connection!";
+      this.message = "Error!";
     }
   }
 }

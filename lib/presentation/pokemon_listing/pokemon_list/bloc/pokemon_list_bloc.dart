@@ -39,6 +39,9 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   @override
   Stream<PokemonListState> mapEventToState(PokemonListEvent event) async* {
     if (event is PokemonListFetch && !_reachedMax) {
+      if (_currentList.isEmpty) {
+        yield PokemonListLoading();
+      }
       var res = await _repository.loadList(_limit, _offset);
       if (res.status == STATUS.SUCCESS) {
         _offset = _offset + _limit;
@@ -56,7 +59,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     } else if (event is PokemonListRefresh) {
       _offset = 0;
       _reachedMax = false;
-      _currentList = [];
+      _currentList = <PokemonListUiModel>[];
       add(PokemonListFetch());
     }
   }

@@ -28,6 +28,7 @@ class PaginatedListWidget<T> extends StatefulWidget {
   Widget Function(BuildContext context, int index, T data) listItemBuilder;
   Widget Function(BuildContext context) emptyDataWidgetBuilder;
   Widget Function(BuildContext context) errorWidgetBuilder;
+  Widget Function(BuildContext context) emptyDataLoader;
 
   bool reverse;
 
@@ -35,7 +36,8 @@ class PaginatedListWidget<T> extends StatefulWidget {
       this.state, this.listItemBuilder, this.onRetryClick, this.onEndReached,
       {this.reverse = false,
       this.emptyDataWidgetBuilder,
-      this.errorWidgetBuilder});
+      this.errorWidgetBuilder,
+      this.emptyDataLoader});
 
   @override
   _PaginatedListWidgetState createState() => _PaginatedListWidgetState();
@@ -70,7 +72,9 @@ class _PaginatedListWidgetState extends State<PaginatedListWidget> {
     final state = widget.state;
     if (state is ListLoading) {
       return Center(
-        child: ListLoader(),
+        child: widget.emptyDataLoader != null
+            ? widget.emptyDataLoader(context)
+            : ListLoader(),
       );
     } else if (state is ListLoaded) {
       if (state.list.isEmpty) {
@@ -112,8 +116,9 @@ class _PaginatedListWidgetState extends State<PaginatedListWidget> {
         : Container(
             child: Center(
               child: RaisedButton(
+                padding: EdgeInsets.all(8),
+                color: Colors.blue,
                 child: Text('Retry'),
-                textColor: Colors.white,
                 onPressed: () {
                   widget.onRetryClick();
                 },

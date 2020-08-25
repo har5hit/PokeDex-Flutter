@@ -23,8 +23,13 @@ class PokemonListApi {
   Future<NetworkResult<PokemonListResponse>> loadList(
       int limit, int offset) async {
     final url = "$BASE_API_URL/api/v2/pokemon?limit=$limit&offset=$offset";
-    final response = await http.get(url);
-    return NetworkResult.handle(
-        response, (jsonData) => PokemonListResponse.fromJson(jsonData));
+    try {
+      await Future.delayed(Duration(milliseconds: 2000));
+      final response = await http.get(url);
+      return NetworkResult.handle(
+          response, (jsonData) => PokemonListResponse.fromJson(jsonData));
+    } catch (e) {
+      return NetworkResult.error(message: "No Internet Connection");
+    }
   }
 }
