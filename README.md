@@ -5,6 +5,7 @@ A Demo Application for demonstrating MVVM design pattern using [Bloc](https://gi
 
 ![Android CI](https://github.com/har5hit/PokeDex-Flutter/workflows/Android%20CI/badge.svg)
 
+![Screenshot](https://github.com/har5hit/PokeDex-Flutter/blob/master/previews/screenshot.png?raw=true)
 
 ## Architecture
 -WIP-
