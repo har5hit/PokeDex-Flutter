@@ -28,7 +28,11 @@ class PokemonListWidget extends StatelessWidget {
         builder: (context, state) {
       return PaginatedListWidget(
           state,
-          (context, data) => PokemonListItemWidget(data),
+          (context, position, data) => Padding(
+              padding: EdgeInsets.only(
+                  left: position % 2 == 0 ? 50 : 0,
+                  right: position % 2 == 0 ? 0 : 50),
+              child: PokemonListItemWidget(data)),
           () => context.bloc<PokemonListBloc>()..add(PokemonListRefresh()),
           () => context.bloc<PokemonListBloc>()..add(PokemonListFetch()));
     });

@@ -25,7 +25,7 @@ class PaginatedListWidget<T> extends StatefulWidget {
   final Function onRetryClick;
   final Function onEndReached;
   final PaginatedListState state;
-  Widget Function(BuildContext context, T data) listItemBuilder;
+  Widget Function(BuildContext context, int index, T data) listItemBuilder;
   Widget Function(BuildContext context) emptyDataWidgetBuilder;
   Widget Function(BuildContext context) errorWidgetBuilder;
 
@@ -98,9 +98,10 @@ class _PaginatedListWidgetState extends State<PaginatedListWidget> {
         child: ListView.builder(
           reverse: widget.reverse,
           controller: _scrollController,
-          itemBuilder: (context, postion) => (postion >= actualItems)
+          itemBuilder: (context, postion) =>
+          (postion >= actualItems)
               ? BottomLoader()
-              : widget.listItemBuilder(context, state.list[postion]),
+              : widget.listItemBuilder(context, postion, state.list[postion]),
           itemCount: itemsToShow,
         ));
   }

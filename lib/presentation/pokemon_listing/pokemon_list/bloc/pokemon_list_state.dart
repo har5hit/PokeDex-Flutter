@@ -15,7 +15,7 @@
  */
 
 import 'package:meta/meta.dart';
-import 'package:pokedex_flutter/data/pokemon_list/model/pokemon_list_response.dart';
+import 'package:pokedex_flutter/presentation/pokemon_listing/pokemon_list/bloc/pokemon_list_ui_model.dart';
 import 'package:pokedex_flutter/utils/pagination/PaginatedListState.dart';
 
 @immutable
@@ -26,8 +26,8 @@ abstract class PokemonListState implements PaginatedListState {
 class PokemonListLoading extends PokemonListState implements ListLoading {}
 
 class PokemonListLoaded extends PokemonListState
-    implements ListLoaded<Pokemon> {
-  final List<Pokemon> list;
+    implements ListLoaded<PokemonListUiModel> {
+  final List<PokemonListUiModel> list;
   final bool hasReachedMax;
   final int total;
 

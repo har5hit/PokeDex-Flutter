@@ -17,8 +17,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:pokedex_flutter/data/pokemon_list/model/pokemon_list_response.dart';
 import 'package:pokedex_flutter/data/pokemon_list/repository/pokemon_list_repository.dart';
+import 'package:pokedex_flutter/presentation/pokemon_listing/pokemon_list/bloc/pokemon_list_ui_model.dart';
 import 'package:pokedex_flutter/utils/NetworkResult.dart';
 import 'package:pokedex_flutter/utils/dev_tools/ILogger.dart';
 
@@ -31,7 +31,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   final ILogger _logger;
   var _offset = 0;
   final _limit = 20;
-  var _currentList = <Pokemon>[];
+  var _currentList = <PokemonListUiModel>[];
   var _reachedMax = false;
 
   PokemonListBloc(this._repository, this._logger) : super(PokemonListLoading());
@@ -42,7 +42,10 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
       var res = await _repository.loadList(_limit, _offset);
       if (res.status == STATUS.SUCCESS) {
         _offset = _offset + _limit;
-        _currentList = _currentList + res.data.results;
+        _currentList = _currentList +
+            (res.data.results
+                .map((e) => PokemonListUiModel.from(e))
+                .toList(growable: false));
         _reachedMax = _currentList.length >= res.data.count;
         yield PokemonListLoaded(_currentList, _reachedMax, res.data.count);
       } else {

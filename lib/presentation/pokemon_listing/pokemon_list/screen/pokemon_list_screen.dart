@@ -28,18 +28,15 @@ class PokemonListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("PokemonListScreen"),
-      ),
-      body: BlocProvider(
-        create: (context) {
-          return PokemonListBloc(
-              context.repository<PokemonListRepository>(), Logger())
-            ..add(PokemonListFetch());
-        },
-        child: PokemonListWidget(),
-      ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12),
+      child: BlocProvider(
+          create: (context) {
+            return PokemonListBloc(
+                context.repository<PokemonListRepository>(), Logger())
+              ..add(PokemonListFetch());
+          },
+          child: PokemonListWidget()),
     );
   }
 }
