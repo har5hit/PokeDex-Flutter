@@ -50,6 +50,8 @@ hygen repository new
 
 * [Android Artifact](https://github.com/har5hit/PokeDex-Flutter/blob/master/.github/workflows/android_artifact.yml) - Archives and hosts apk build on each tag push for sharing.
 
+![Workflow Artifact](https://github.com/har5hit/PokeDex-Flutter/blob/master/previews/workflow_artifact.png?raw=true)
+
 # TODO
 - [ ] Unit Test Cases
 - [ ] E2E Test Cases
