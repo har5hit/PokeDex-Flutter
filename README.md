@@ -42,7 +42,7 @@ hygen repository new
 ```
 ![Screenshot](https://github.com/har5hit/PokeDex-Flutter/blob/master/previews/generate_repository.png?raw=true)
 
-# Github Workflows
+# Github Actions (CI-CD) 
 
 * [Android CI](https://github.com/har5hit/PokeDex-Flutter/blob/master/.github/workflows/android_ci.yml) - to verify every code push to/pull request on master branch is validated, error free and releases can be properly built.
 
