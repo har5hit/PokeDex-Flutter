@@ -7,17 +7,53 @@ A Demo Application for demonstrating MVVM design pattern using [Bloc](https://gi
 
 ![Screenshot](https://github.com/har5hit/PokeDex-Flutter/blob/master/previews/screenshot.png?raw=true)
 
-## Architecture
--WIP-
 
-## Code Generation
--WIP-
-<br>
-Templates can be customized based on projects. 
+# Application Structure
+
+* **/data** (All data related files)
+  * /entity_1 (for e.g: Person)
+    * /model 
+    * /repository 
+    * /network
+    
+* **/presentation** (All view related files)
+  * /module_1
+    * /component_1
+      * /bloc
+      * /screen
+      * /widget
+      
+
+# Code Generation
+
+### Prerequisite
+* Install [Hygen](http://www.hygen.io/docs/quick-start)
+
+### Generate View Components
+
+
+```
+hygen component new
+```
+![Screenshot](https://github.com/har5hit/PokeDex-Flutter/blob/master/previews/generate_component.png?raw=true)
+
+```
+hygen repository new
+```
+![Screenshot](https://github.com/har5hit/PokeDex-Flutter/blob/master/previews/generate_repository.png?raw=true)
+
+# Github Workflows
+
+* [Android CI](https://github.com/har5hit/PokeDex-Flutter/blob/master/.github/workflows/android_ci.yml) - to verify every code push to/pull request on master branch is validated, error free and releases can be properly built.
+
+![Workflow Complete](https://github.com/har5hit/PokeDex-Flutter/blob/master/previews/workflow_check?raw=true)
+
+* [Android Artifact](https://github.com/har5hit/PokeDex-Flutter/blob/master/.github/workflows/android_artifact.yml) - Archives and hosts apk build on each tag push for sharing.
 
 # TODO
 - [ ] Unit Test Cases
 - [ ] E2E Test Cases
+- [ ] Persistence
 
 # Resources
 
