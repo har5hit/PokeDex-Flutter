@@ -1,38 +1,45 @@
-FROM gitpod/workspace-full
-
-ENV ANDROID_HOME=/home/gitpod/android-sdk \
-    FLUTTER_HOME=/home/gitpod/flutter
+FROM gitpod/workspace-full:latest
 
 USER root
 
-RUN curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \
-    apt-get update && \
-    apt-get -y install build-essential dart libkrb5-dev gcc make gradle android-tools-adb android-tools-fastboot openjdk-8-jdk && \
-    apt-get clean && \
-    apt-get -y autoremove && \
-    apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/*;
-
+RUN apt-get update -y
+RUN apt-get install -y gcc make build-essential wget curl unzip apt-utils xz-utils libkrb5-dev gradle libpulse0 android-tools-adb android-tools-fastboot
+RUN apt-get install -y openjdk-8-jdk
 
 USER gitpod
 
-RUN cd /home/gitpod && \
-    wget -qO flutter_sdk.tar.xz \
-    https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_v1.9.1+hotfix.4-stable.tar.xz &&\
-    tar -xvf flutter_sdk.tar.xz && \
-    rm -f flutter_sdk.tar.xz
+# Android
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+ENV ANDROID_HOME="/home/gitpod/.android"
+ENV ANDROID_SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
+ENV ANDROID_SDK_ARCHIVE="${ANDROID_HOME}/archive"
+ENV ANDROID_STUDIO_PATH="/home/gitpod/"
 
-RUN cd /home/gitpod && \
-    wget -qO android_studio.zip \
-    https://dl.google.com/dl/android/studio/ide-zips/3.3.0.20/android-studio-ide-182.5199772-linux.zip && \
-    unzip android_studio.zip && \
-    rm -f android_studio.zip
+RUN cd "${ANDROID_STUDIO_PATH}"
+RUN wget -qO android_studio.zip https://dl.google.com/dl/android/studio/ide-zips/3.3.0.20/android-studio-ide-182.5199772-linux.zip
+RUN unzip android_studio.zip
+RUN rm -f android_studio.zip
 
-RUN mkdir -p /home/gitpod/android-sdk && \
-    cd /home/gitpod/android-sdk && \
-    wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \
-    unzip sdk-tools-linux-4333796.zip && \
-    rm -f sdk-tools-linux-4333796.zip
+RUN mkdir -p "${ANDROID_HOME}"
+RUN touch $ANDROID_HOME/repositories.cfg
+RUN wget -q "${ANDROID_SDK_URL}" -O "${ANDROID_SDK_ARCHIVE}"
+RUN unzip -q -d "${ANDROID_HOME}" "${ANDROID_SDK_ARCHIVE}"
+RUN echo y | "${ANDROID_HOME}/tools/bin/sdkmanager" "platform-tools" "platforms;android-28" "build-tools;28.0.3"
+RUN echo y | "${ANDROID_HOME}/tools/bin/sdkmanager" "platform-tools" "platforms;android-29" "build-tools;29.0.3"
+RUN rm "${ANDROID_SDK_ARCHIVE}"
 
+# Flutter
+ENV FLUTTER_HOME="/home/gitpod/flutter"
+RUN git clone https://github.com/flutter/flutter $FLUTTER_HOME
+RUN $FLUTTER_HOME/bin/flutter channel beta
+RUN $FLUTTER_HOME/bin/flutter upgrade
+RUN $FLUTTER_HOME/bin/flutter precache
+RUN $FLUTTER_HOME/bin/flutter config --no-analytics
+RUN yes "y" | $FLUTTER_HOME/bin/flutter doctor --android-licenses -v
+ENV PUB_CACHE=/workspace/.pub_cache
+
+# Hygen
 RUN npm i -g hygen
+
+# Env
+RUN echo 'export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${PUB_CACHE}/bin:${FLUTTER_HOME}/.pub-cache/bin:$PATH' >>~/.bashrc

@@ -5,6 +5,8 @@ A Demo Application for demonstrating MVVM design pattern using [Bloc](https://gi
 
 ![Android CI](https://github.com/har5hit/PokeDex-Flutter/workflows/Android%20CI/badge.svg)
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/har5hit/PokeDex-Flutter)
+
 ![Screenshot](https://github.com/har5hit/PokeDex-Flutter/blob/master/previews/screenshot.png?raw=true)
 
 
@@ -70,7 +72,10 @@ hygen repository new
 All the Pokémon data you'll ever need in one place,
 easily accessible through a modern RESTful API.
 
-## App Icon by ["Those Icons"](https://www.flaticon.com/authors/those-icons)
+## [Gitpod Flutter Configuration](https://github.com/vtorres/gitpod-flutter)
+
+## App Icon
+* ["Those Icons"](https://www.flaticon.com/authors/those-icons)
 
 # License
 ```xml
